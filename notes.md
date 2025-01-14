@@ -20,6 +20,11 @@ Think about what defines a chunk that can be undone.
 Everything from entering insert mode to going back to normal mode is a chunk.
 
 Using an arrow key in insert mode will start a new "undo chunk."
+**Mantra**: Act, repeat, reverse.
+
+d, y and c are operations.
+
+When an operator is invoked twice, it will operate on the current line.
 
 
 ## Keystrokes
@@ -29,3 +34,8 @@ Using an arrow key in insert mode will start a new "undo chunk."
 - <C-a> will increment the number under the cursor.
 - <C-x> will decrement the number under the cursor.
 - 'yy' will yank the current line.
+- g~ = swap case
+- gu will make lowercase.
+- gU will make uppercase.
+  - gUU will capitalize the current line.
+
