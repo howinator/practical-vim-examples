@@ -30,9 +30,9 @@ make_change() {
 }
 
 # Start date: December 23, 2024
-start_date="2025-01-15"
+start_date="2025-09-12"
 # End date: January 12, 2025
-end_date="2025-01-26"
+end_date="2026-03-22"
 
 # Convert dates to Unix timestamps
 start_ts=$(date -j -f "%Y-%m-%d" "$start_date" "+%s")
@@ -41,8 +41,25 @@ end_ts=$(date -j -f "%Y-%m-%d" "$end_date" "+%s")
 # Loop through each day
 current_ts=$start_ts
 while [ $current_ts -le $end_ts ]; do
-  # Generate random number of commits (1-5) for this day
-  num_commits=$((RANDOM % 5 + 1))
+  # Randomly skip some 3-day stretches (~30% chance)
+  if ((RANDOM % 100 < 30)); then
+    skip_date=$(date -r $current_ts "+%Y-%m-%d")
+    echo "Skipping 3-day stretch starting $skip_date"
+    current_ts=$((current_ts + 86400 * 3))
+    continue
+  fi
+
+  # Generate random number of commits (1-12) with more variance
+  roll=$((RANDOM % 100))
+  if ((roll < 20)); then
+    num_commits=$((RANDOM % 2 + 1))   # 1-2 commits (20%)
+  elif ((roll < 50)); then
+    num_commits=$((RANDOM % 3 + 3))   # 3-5 commits (30%)
+  elif ((roll < 80)); then
+    num_commits=$((RANDOM % 4 + 5))   # 5-8 commits (30%)
+  else
+    num_commits=$((RANDOM % 5 + 8))   # 8-12 commits (20%)
+  fi
 
   # Get the date in ISO format
   current_date=$(date -r $current_ts "+%Y-%m-%d")
