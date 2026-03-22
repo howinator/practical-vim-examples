@@ -30,7 +30,7 @@ make_change() {
 }
 
 # Start date: December 23, 2024
-start_date="2025-09-12"
+start_date="2025-02-12"
 # End date: January 12, 2025
 end_date="2026-03-22"
 
